@@ -58,14 +58,14 @@ const shoppingList = (function(){
   
   
   function addItemToShoppingList(itemName) { //store.items.push({ id: cuid(), name: itemName, checked: false }); 
-    // try{ Item.validateName(itemName); 
-    //   const newItem = Item.create(itemName); 
-    //   store.items.push(newItem); render(); 
-    // }
-    // catch(e)
-    // { 
-    //   console.log(`Cannot add item: ${e.message}`); 
-    // } 
+    try{ Item.validateName(itemName); 
+      const newItem = Item.create(itemName); 
+      store.items.push(newItem); render(); 
+    }
+    catch(e)
+    { 
+      console.log(`Cannot add item: ${e.message}`); 
+    } 
   }
   
   function handleNewItemSubmit() {
@@ -77,13 +77,7 @@ const shoppingList = (function(){
       render();
     });
   }
-  
-  // function toggleCheckedForListItem(id) {
-  //   const foundItem = store.items.find(item => item.id === id);
-  //   foundItem.checked = !foundItem.checked;
-  // }
-  
-  
+ 
   function getItemIdFromElement(item) {
     return $(item)
       .closest('.js-item-element')
