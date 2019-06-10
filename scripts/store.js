@@ -14,43 +14,40 @@ const store = (function () {
   const hideCheckedItems = false;
   const searchTerm = '';
 
-  const findById = function(id) {
+  function findById(id) {
     store.items.find(id);
-  };
+  }
 
-  const addItem = function(name) {
-    try {
-      Item.validateName(name);
-      const addNewItem = Item.create(name);
-      this.items.push(addNewItem);
-      render();
-    } catch(e) {
-      console.log(`Cannot add item: ${e.message}`);
+  function addItem(name) {
+    try { 
+      Item.validateName(name); 
+      const newItem = Item.create(name); 
+      store.items.push(newItem); 
+      render(); 
     }
-  };
+    catch(e) { 
+      console.log(`Cannot add item: ${e.message}`); 
+    } 
+  }
 
-  const findAndToggleChecked = function(id) {
-    const newFoundItem = this.findById(id);
+  function findAndToggleChecked(id) {
+    const newFoundItem = store.items.find(item => item.id === id);
     newFoundItem.checked = !newFoundItem.checked;
-    console.log(newFoundItem);
-  };
+  }
 
-  const findAndUpdateName = function(id,newName) {
+  function findAndUpdateName(id,newName) {
     try {
-      validateName(name);
-      let found = findById(id);
-      found.name = newName;
+      const itemName = store.items.find(item => item.id === id);
+      itemName.name = newName;
     } catch(e) {
       console.log(`'Cannot update name:' ${e.message}`);
     }
-  };
+  }
 
-  const findAndDelete = function(id) {
-    const index = store.items.findIndex(function(item) {
-      item.id === id;
-    });
-    store.items.splice(index, 1);
-  };
+  function findAndDelete(id) {
+    const index = store.items.findIndex(item => item.id === id);
+    items.splice(index, 1);
+  }
 
   return {
     items,
